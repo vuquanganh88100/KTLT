@@ -38,8 +38,15 @@ void Student::setCheck(int check) {
 }
 void Student::display() {
 	cout << "Name: " <<getName() << endl;
-	cout << "ID: " << getId<<endl;
-	cout << "Course: " << getCourse<<endl;
-	cout << "Enter 1:Study credit program . Enter 2: Study model program" << getCheck() << endl;
+	cout << "ID: " << getId() << endl;
+	cout << "Course: " << getCourse() << endl;
+	if (check == 1) {
+		cout << "Study credit program";
+		Credit_program X;
+	}
+	else if (check == 2) {
+		cout << "Study model program";
+		Model_program Y;
+	}
 }
 
