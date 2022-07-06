@@ -4,26 +4,13 @@
 #include<vector>
 #include<string>
 using namespace std;
-//int input_number_of_students(void)
-//{
-//	cout << "Please input number of students (n>=1): \t";
-//	int n;
-//	cin >> n;
-//	while (!cin || n <= 0) {
-//		cout << "Please input a positive numeric data! \n";
-//		cin.clear(); // reset failed bit
-//		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
-//		cin >> n;
-//	}
-//	return n;
-//}
 void get_input_number_of_students(vector<Student>&v1,int p1) {
 	for (int j= 0; j < p1;j++) {
 		static int i = 1;
 		Student v;
 		int ID;
-		string NAME;
-		int COURSE{};
+		std::string NAME;
+		int COURSE;
 		int CHECK;
 		double GPA;
 		int CREDIT;
@@ -51,7 +38,7 @@ void get_input_number_of_students(vector<Student>&v1,int p1) {
 	}
 }
 void input() {
-cout << "Enter request" << endl;
+cout << "\nEnter request" << endl;
 	cout << "1: Add student information" << endl;
 	cout << "2: Fix student information" << endl;
 	cout << "3: Delete student information" << endl;
@@ -76,11 +63,11 @@ int main() {
 	int n; // number of student
 	vector<Student>v;
 	input();
-	while (true){
-	cin >> choose;
-	switch (choose) {
-	case 1:
-		
+	while (true) {
+		cin >> choose;
+		switch (choose) {
+		case 1:
+
 			cout << "Please input number of students (n>=1): \t";;
 			cin >> n;
 			while (n <= 0) {
@@ -91,8 +78,22 @@ int main() {
 			}
 			get_input_number_of_students(v, n);
 			input();
-	case 4:
-		
+			break;
+		case 4:
+			cout << "Search student information by ID ";
+			int id1;
+			cin >> id1;
+			for (int i = 0; i < v.size(); i++) {
+				if (id1 == v.at(i).getId()) {
+					cout << "The information by ID " << endl;
+					v.at(i).display();
+				}
+			}input();
+			break;
+		case 9:
+			break;
+		}
+	}
 }
 
 
