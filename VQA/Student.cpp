@@ -1,8 +1,9 @@
 #include"Student.h"
 #include<iostream>
+#include<string>
 using namespace std;
 Student::Student() {
-	 name = " ";
+	 name = "";
 	id = course =check= 0;
 }
 Student::Student(string name, int id, int course, int check){
@@ -15,6 +16,7 @@ Student::Student(string name, int id, int course, int check){
 string Student::getName() {
 	return name;
 }
+
 void Student::setName(string name) {
 	this->name = name;
 }
@@ -37,16 +39,8 @@ void Student::setCheck(int check) {
 	this->check = check;
 }
 void Student::display() {
-	cout << "Name: " <<getName() << endl;
+	cout << "Name: " << getName() << endl;
 	cout << "ID: " << getId() << endl;
 	cout << "Course: " << getCourse() << endl;
-	if (check == 1) {
-		cout << "Study credit program";
-		Credit_program X;
-	}
-	else if (check == 2) {
-		cout << "Study model program";
-		Model_program Y;
-	}
 }
 
