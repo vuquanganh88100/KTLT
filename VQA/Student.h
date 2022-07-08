@@ -1,9 +1,10 @@
 #pragma once
 #include<iostream>
+#include<string>
 using namespace std;
 
 class Student {
-protected:
+private:
 	string name;
 	int id;
 	int course;
@@ -12,25 +13,23 @@ public:
 	Student();
 	Student(string name, int id, int course, int check);
 	string getName();
-	void setName(string name);
+	virtual void setName(string name);
 	int getId();
-	void setId(int id);
+	virtual void setId(int id);
 	int getCourse();
-	void setCourse(int course);
+	virtual void setCourse(int course);
 	int getCheck();
-	void setCheck(int check);
-	void display();
-
-
+	virtual void setCheck(int check);
+	virtual void display();
 };
 class Model_program :public Student {
 private:
 	double gpa;
 public:
 	Model_program();
-	Model_program(string name, string check, int id, int course, double gpa);
+	Model_program(string name, int id, int course, int check, double gpa);
 	int getGpa();
-	void setGpa();
+	virtual void setGpa();
 	void display();
 };
 class Credit_program :public Student {
@@ -38,8 +37,8 @@ private:
 	int number_of_credit;
 public:
 	Credit_program();
-	Credit_program(string name, string check, int id, int course, int number_of_credit);
+	Credit_program(string name, int id, int course, int check, int number_of_credit);
 	int getNumber_of_credit();
-	void setNumber_of_credit();
+	virtual void setNumber_of_credit();
 	void display();
 };
