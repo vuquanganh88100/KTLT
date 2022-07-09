@@ -35,6 +35,7 @@ public:
 class Credit_program :public Student {
 private:
 	int number_of_credit;
+	int count2;
 public:
 	Credit_program();
 	Credit_program(string name, int id, int course, int check, int number_of_credit);
