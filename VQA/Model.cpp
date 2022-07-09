@@ -2,7 +2,6 @@
 #include<iostream>
 using namespace std;
 
-
 Model_program::Model_program(string name, int id, int course, int check, double gpa) : Student(name, id, course, check) {
 		this->gpa = gpa;
 	}
