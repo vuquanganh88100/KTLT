@@ -1,42 +1,60 @@
- 
+
 #include<iostream>
 #include"Student.h"
 #include<vector>
 #include<string>
 using namespace std;
-void get_input_number_of_students(vector<std::unique_ptr<Student>>&v1,int p1) {
-	for (int j= 0; j < p1;j++) {
+void get_input_number_of_students(vector<std::unique_ptr<Student>>& v1, int p1) {
+	for (int j = 0; j < p1; j++) {
 		int ID;
 		string NAME;
 		int COURSE;
 		int CHECK;
 		double GPA;
 		int CREDIT;
-		cout << "Enter the information of student " << j + 1 << " :"<<endl;
-		cout << "Enter name of student " ;
+		cout << "Enter the information of student " << j + 1 << " :" << endl;
+		cout << "Enter name of student ";
 		cin.ignore();
 		getline(cin, NAME);
 		cout << "\nEnter the ID: " << endl;
 		cin >> ID;
-		cout << "\nEnter the Course: " <<endl;
+		while (ID<= 0) {
+			cout << "Please input a positive numeric data! \n";
+			cin.clear(); // reset failed bit
+			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
+			cin >> ID;
+		}
+		cout << "\nEnter the Course: " << endl;
 		cin >> COURSE;
-		cout << "\nEnter 1:Study credit program . Enter 2: Study model program"<<endl ;
+		while (COURSE <= 0) {
+			cout << "Please input a positive numeric data! \n";
+			cin.clear(); // reset failed bit
+			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
+			cin >> COURSE;
+		}
+		cout << "\nEnter 1:Study credit program . Enter 2: Study model program" << endl;
 		cin >> CHECK;
+		while (CHECK <= 0||CHECK>2) {
+			cout << "Require input is 1 or 2\n";
+			cin.clear(); // reset failed bit
+			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
+			cin >> CHECK;
+		}
 		if (CHECK == 1) {
-			cout << "\nHow many credit ?"<<endl ;
+			cout << "\nHow many credit ?" << endl;
 			cin >> CREDIT;
 			v1.push_back(std::unique_ptr<Student>(new Credit_program(NAME, ID, COURSE, CHECK, CREDIT)));
 		}
 		else if (CHECK == 2) {
-			cout << "\nGPA ?"<<endl ;
+			cout << "\nGPA ?" << endl;
 			cin >> GPA;
 			v1.push_back(std::unique_ptr<Student>(new Model_program(NAME, ID, COURSE, CHECK, GPA)));
 		}
-	
+
 	}
 }
 void input() {
-cout << "\nEnter request" << endl;
+	cout << "\nEnter request" << endl;
 	cout << "1: Add student information" << endl;
 	cout << "2: Fix student information" << endl;
 	cout << "3: Delete student information" << endl;
@@ -46,6 +64,7 @@ cout << "\nEnter request" << endl;
 	cout << "7: Statistics of students studying according to the type of credit" << endl;
 	cout << "8: Statistics of students studying according to the model program " << endl;
 	cout << "9: Exit" << endl;
+	cout << "====================================================================" << endl;
 }
 void fixing() {
 	cout << "\nWhat information do you want to edit ?" << endl;
@@ -65,12 +84,12 @@ int main() {
 	int newcourse;
 	double newgpa;
 	int new_number_of_credit;
-	int x ;; // bien trung gian check co thong tin hay ko
+	int x;; // bien trung gian check co thong tin hay ko
 	vector<std::unique_ptr<Student>>v;
 	input();
 	while (true) {
 		cin >> choose;
-		while (choose <= 0||choose>9) {
+		while (choose <= 0 || choose > 9) {
 			cout << "Please re-enter the correct format \n";
 			cin.clear(); // reset failed bit
 			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
@@ -110,9 +129,9 @@ int main() {
 					x++;
 				}
 			}
-			if(x==0){
+			if (x == 0) {
 				cout << "Not found";
-            }
+			}
 			input();
 			break;
 		}
@@ -164,20 +183,21 @@ int main() {
 		case 3: {
 			cout << "3: Delete student information " << endl;
 			cout << "List of student information before deleting " << endl;
+			cout << "====================================================================" << endl;
 			for (int i = 0; i < v.size(); i++) {
-				cout << "The information of student " << (i + 1) << " :" << endl;
+				cout << "\nThe information of student " << (i + 1) << " :" << endl;
 				v.at(i)->display();
 			}
 			int del;
 			cout << "\nSelect the  student you want to delete : ";
 			cin >> del;
-			while (del <= 0&&del>v.size()) {
-				cout << "Please input a positive numeric data and <= "<<v.size()<<endl;
+			while (del <= 0 || del > v.size()) {
+				cout << "Please input a positive numeric data and <= " << v.size() << endl;
 				cin.clear(); // reset failed bit
 				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
 				cin >> del;
 			}
-			v.erase(v.begin() + del-1);
+			v.erase(v.begin() + del - 1);
 			cout << "\nList of student information after deleting ";
 			for (int i = 0; i < v.size(); i++) {
 				cout << "\nThe information of student " << (i + 1) << " :" << endl;
@@ -186,9 +206,10 @@ int main() {
 			input();
 			break;
 		}
-		case 2: 
+		case 2:
 		{
 			cout << "2: Fix student information " << endl;
+			cout << "====================================================================" << endl;
 			for (int i = 0; i < v.size(); i++) {
 				cout << "\nThe information of student " << (i + 1) << " :" << endl;
 				v.at(i)->display();
@@ -196,10 +217,16 @@ int main() {
 			fixing();
 			cout << "\nSelect the information of student you want to edit " << endl;
 			cin >> fix;
+			while (fix <= 0||fix>v.size()) {
+				cout << "Please re-enter the correct format \n";
+				cin.clear(); // reset failed bit
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
+				cin >> fix;
+			}
 			if (fix == 1) {
 				cout << "Select the student you want to change the name ";
 				cin >> k;
-				while (k <= 0||k>v.size()) {
+				while (k <= 0 || k > v.size()) {
 					cout << "Please input a positive numeric data and <= " << v.size() << endl;
 					cin.clear(); // reset failed bit
 					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
@@ -216,7 +243,7 @@ int main() {
 			if (fix == 2) {
 				cout << "Select the student you want to change the ID ";
 				cin >> k;
-				while (k <= 0||k>v.size()) {
+				while (k <= 0 || k > v.size()) {
 					cout << "Please input a positive numeric data and <= " << v.size() << endl;
 					cin.clear(); // reset failed bit
 					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
@@ -259,7 +286,7 @@ int main() {
 					cnt++;
 				}
 			}
-				cout << cnt << endl;
+			cout << cnt << endl;
 			input();
 			break;
 		}
@@ -273,15 +300,18 @@ int main() {
 					cnt1++;
 				}
 			}
-				cout << cnt1 << endl;
+			cout << cnt1 << endl;
 			input();
 			break;
 		}
-
+		case 9:
+		{
+			cout << "End program";
+			exit(0);
+		}
 		}
 	}
 }
-
 
 
 
