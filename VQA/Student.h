@@ -21,6 +21,10 @@ public:
 	int getCheck();
 	virtual void setCheck(int check);
 	virtual void display();
+	virtual int getGpa();
+	virtual int getNumber_of_credit();
+	virtual void setGpa(double gpa);
+	virtual void setNumber_of_credit(int credit);
 };
 class Model_program :public Student {
 private:
@@ -29,17 +33,16 @@ public:
 	Model_program();
 	Model_program(string name, int id, int course, int check, double gpa);
 	int getGpa();
-	virtual void setGpa();
+	void setGpa(double gpa);
 	void display();
 };
 class Credit_program :public Student {
 private:
 	int number_of_credit;
-	int count2;
 public:
 	Credit_program();
 	Credit_program(string name, int id, int course, int check, int number_of_credit);
 	int getNumber_of_credit();
-	virtual void setNumber_of_credit();
+	void setNumber_of_credit(int credit);
 	void display();
 };
