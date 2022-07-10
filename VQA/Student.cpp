@@ -3,10 +3,10 @@
 #include<string>
 using namespace std;
 Student::Student() {
-	 name = "";
-	id = course =check= 0;
+	name = "";
+	id = course = check = 0;
 }
-Student::Student(string name, int id, int course, int check){
+Student::Student(string name, int id, int course, int check) {
 	this->name = name;
 	this->id = id;
 	this->course = course;
@@ -26,21 +26,28 @@ int Student::getId() {
 void Student::setId(int id) {
 	this->id = id;
 }
-int Student::getCourse(){
+int Student::getCourse() {
 	return course;
 }
 void Student::setCourse(int course) {
 	this->course = course;
 }
-int Student::getCheck(){
+int Student::getCheck() {
 	return check;
 }
 void Student::setCheck(int check) {
 	this->check = check;
 }
+int Student::getGpa() {
+	return -1;
+}
+int Student::getNumber_of_credit() {
+	return -1;
+}
+void Student::setGpa(double GPA) {}
+void Student::setNumber_of_credit(int credit){}
 void Student::display() {
 	cout << "Name: " << getName() << endl;
 	cout << "ID: " << getId() << endl;
 	cout << "Course: " << getCourse() << endl;
 }
-
