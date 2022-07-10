@@ -63,7 +63,8 @@ void input() {
 	cout << "6: Search student information by course" << endl;
 	cout << "7: Statistics of students studying according to the type of credit" << endl;
 	cout << "8: Statistics of students studying according to the model program " << endl;
-	cout << "9: Exit" << endl;
+	cout << "9:Statistics of the list of students allowed to graduate " << endl;
+	cout << "10: Exit" << endl;
 	cout << "====================================================================" << endl;
 }
 void fixing() {
@@ -71,8 +72,7 @@ void fixing() {
 	cout << "1: Name" << endl;
 	cout << "2: ID" << endl;
 	cout << "3: Course" << endl;
-	cout << "4: GPA" << endl;
-	cout << "5: The number of credits";
+	cout << "4: GPA/Credit"<<endl;
 }
 int main() {
 	int choose;
@@ -82,14 +82,15 @@ int main() {
 	string newname;
 	int newid;
 	int newcourse;
-	double newgpa;
-	int new_number_of_credit;
+	int newcheck;
+	int newcredit;
+	int newgpa;
 	int x;; // bien trung gian check co thong tin hay ko
 	vector<std::unique_ptr<Student>>v;
 	input();
 	while (true) {
 		cin >> choose;
-		while (choose <= 0 || choose > 9) {
+		while (choose <= 0 || choose > 10) {
 			cout << "Please re-enter the correct format \n";
 			cin.clear(); // reset failed bit
 			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
@@ -217,7 +218,7 @@ int main() {
 			fixing();
 			cout << "\nSelect the information of student you want to edit " << endl;
 			cin >> fix;
-			while (fix <= 0||fix>v.size()) {
+			while (fix <= 0 || fix > 4) {
 				cout << "Please re-enter the correct format \n";
 				cin.clear(); // reset failed bit
 				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
@@ -260,7 +261,7 @@ int main() {
 			if (fix == 3) {
 				cout << "Select the student you want to change the COURSE ";
 				cin >> k;
-				while (k <= 0) {
+				while (k <= 0 || k > v.size()) {
 					cout << "Please input a positive numeric data and <= " << v.size() << endl;
 					cin.clear(); // reset failed bit
 					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
@@ -274,8 +275,37 @@ int main() {
 				v.at(k - 1)->display();
 				input();
 			}
+			if (fix == 4) {
+				cout << "Select the student you want to change the GPA/Credit ";
+				cin >> k;
+				while (k <= 0 || k > v.size()) {
+					cout << "Please input a positive numeric data and <= " << v.size() << endl;
+					cin.clear(); // reset failed bit
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
+					cin >> k;
+				}
+				if (v.at(k - 1)->getCheck() == 1)
+				{
+					int Credit;
+					cout << "\n Enter new Credit : ";
+					cin >> Credit;
+					v.at(k - 1)->setNumber_of_credit(Credit);
+				}
+				else
+				{
+					double GPA;
+					cout << "\n Enter new GPA : ";
+					cin >> GPA;
+					v.at(k - 1)->setGpa(GPA);
+				}
+				cin.ignore();
+				cout << "New information of student : " << endl;
+				v.at(k - 1)->display();
+				input();
+			}
+
 			break;
-		}
+
 		case 7:
 		{
 			cout << "Statistics of students studying according to the type of credit " << endl;
@@ -304,10 +334,41 @@ int main() {
 			input();
 			break;
 		}
-		case 9:
+		case 9: {
+			int creditCount = 0, modelCount = 0;
+			cout << "Statistics of the list of students allowed to graduate " << endl;
+			/*cout << "Credit Program" << endl;*/
+			for (int i = 0; i < v.size(); i++)
+			{ 
+				if (v.at(i)->getCheck() == 1) {
+					if (v.at(i)->getNumber_of_credit() == 128) {
+						v.at(i)->display();
+						creditCount++;
+					}
+				}
+			}
+		/*	cout << "Model Program" << endl;*/
+			for (int i = 0; i < v.size(); i++)
+			{
+				if (v.at(i)->getCheck() == 2) {
+					if (v.at(i)->getGpa() >= 5.0) {
+						v.at(i)->display();
+						modelCount++;
+					}
+				}
+			}
+			cout << "Graduation Condition Satisfied: " << endl;
+			cout << "Model Program: " << modelCount << endl;
+			cout << "Credit Program: " << creditCount << endl;
+			input();
+			break;
+		}
+
+		case 10:
 		{
-			cout << "End program";
+			cout << "\nEnd program";
 			exit(0);
+		}
 		}
 		}
 	}
